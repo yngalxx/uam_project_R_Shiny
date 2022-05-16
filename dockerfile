@@ -6,4 +6,8 @@ WORKDIR /uam_project_R_Shiny
 COPY renv.lock renv.lock
 RUN R -e 'renv::restore()'
 
-RUN Rscript shiny_dashboard.R
+COPY data/ data/
+
+EXPOSE 7914
+
+CMD ["R", "-e", "shiny::runApp('/uam_project_R_Shiny', host='127.0.0.1', port=7914)"]
