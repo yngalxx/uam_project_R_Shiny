@@ -9,7 +9,4 @@ RUN R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')"
 COPY renv.lock renv.lock
 RUN R -e 'renv::restore()'
 
-COPY data/ data/
-COPY shiny_dashboard.R shiny_dashboard.R
-
 CMD ["R", "-e", "runApp('shiny_dashboard.R')"]
