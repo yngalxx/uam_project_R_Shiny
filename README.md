@@ -19,3 +19,8 @@ The project involves developing a Shiny application in R to visualize Chinese an
 1. China: https://www.kaggle.com/datasets/anandhuh/population-data-china
 2. USA: https://www.kaggle.com/datasets/anandhuh/population-data-usa?select=population_usa.csv
 
+<b>Instruction:</b>
+1. Go to cloned repository in terminal
+2. Run "docker build -t r-shiny ."
+3. Run "docker run --rm -p 8080:8080 r-shiny"
+4. Open in browser url "http://0.0.0.0:8080"
