@@ -5,24 +5,36 @@ library(shiny)
 library(shinydashboard)
 library(ggplot2)
 library(usethis)
-
 source('helper.R')
 
-china_pop <- read.csv("data/China/china_population.csv")
-usa_pop <- read.csv("data/USA/population_usa.csv")
+read_data <- function(path) {
+  df <- read.csv(path)
+  return(df)
+}
+
+china_pop <- read_data("data/China/china_population.csv")
+usa_pop <- read_data("data/USA/population_usa.csv")
 
 #check nulls
 check_null(china_pop)
 check_null(usa_pop)
 
-usa_china_pop <- merge(
-  x = usa_pop,
-  y = china_pop,
-  by = 'Year',
-  all = TRUE,
-  suffixes = c('.USA', '.China')
-)
-#colnames(usa_china_pop)
+merge_dfs <- function(df1, df2, key, suffixes) {
+  merged_dfs <- merge(
+    x = df1,
+    y = df2,
+    by = key,
+    all = TRUE,
+    suffixes = suffixes
+  )
+  return(merged_dfs)
+}
+
+usa_china_pop <-
+  merge_dfs(usa_pop, china_pop, 'Year', c('.USA', '.China'))
+
+#check nulls
+check_null(usa_china_pop)
 
 ui <- dashboardPage(
   dashboardHeader(title = 'China vs. USA Pop.'),
@@ -93,8 +105,6 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output) {
-  #set.seed(122)
-  
   #plot of China population
   output$plot_pop_china <- renderPlot({
     ggplot(china_pop, aes(x = Year, y = Population / 1000000)) +
