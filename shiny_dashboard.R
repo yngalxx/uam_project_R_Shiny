@@ -5,6 +5,7 @@ library(shiny)
 library(shinydashboard)
 library(ggplot2)
 library(usethis)
+<<<<<<< HEAD
 
 
 #read data
@@ -12,11 +13,16 @@ library(usethis)
 #@param path
 #
 #@return dataframe
+=======
+source('helper.R')
+
+>>>>>>> 818278a50064841b53dd150fc5da7bf9d35ea853
 read_data <- function(path) {
   df <- read.csv(path)
   return(df)
 }
 
+<<<<<<< HEAD
 #check if there is any null
 #
 #@param x
@@ -27,6 +33,8 @@ check_null <- function(x) {
   sum(is.null(x))
 }
 
+=======
+>>>>>>> 818278a50064841b53dd150fc5da7bf9d35ea853
 china_pop <- read_data("data/China/china_population.csv")
 usa_pop <- read_data("data/USA/population_usa.csv")
 
@@ -34,12 +42,15 @@ usa_pop <- read_data("data/USA/population_usa.csv")
 check_null(china_pop)
 check_null(usa_pop)
 
+<<<<<<< HEAD
 
 #merge dataframes
 #
 #@params df1, df2, key, suffixes
 #
 #@return dataframe
+=======
+>>>>>>> 818278a50064841b53dd150fc5da7bf9d35ea853
 merge_dfs <- function(df1, df2, key, suffixes) {
   merged_dfs <- merge(
     x = df1,
