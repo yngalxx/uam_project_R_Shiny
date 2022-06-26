@@ -1,5 +1,10 @@
 FROM rocker/shiny:4.1.2 
 
+RUN apt-get update && apt-get -y install \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev 
+
 COPY . /usr/local/bin/uam_project_R_Shiny
 WORKDIR /usr/local/bin/uam_project_R_Shiny
 
@@ -11,4 +16,4 @@ RUN R -e 'renv::restore()'
 
 EXPOSE 8080
 
-CMD ["R", "-e", "shiny::runApp('shiny_dashboard.R', host = '0.0.0.0', port = 8080)"]
+CMD ["R", "-e", "shiny::runApp('app.R', host = '0.0.0.0', port = 8080)"]

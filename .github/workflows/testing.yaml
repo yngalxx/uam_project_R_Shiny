@@ -1,0 +1,35 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+name: Testing CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
+          
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev 
+
+      - name: Install Packages
+        run: |
+          R -e 'install.packages(c("testthat", "devtools", "renv"))'
+          R -e 'renv::restore()'
+      - name: Test Code
+        run: testthat::test_dir("tests/testthat")
+        shell: Rscript {0}
