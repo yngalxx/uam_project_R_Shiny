@@ -1,3 +1,32 @@
+library(dplyr)
+
+# merge dataframes
+#
+# @params df1, df2, key, suffixes
+#
+# @return dataframe
+merge_dfs <- function(df1, df2, key, suffixes) {
+  merged_dfs <- merge(
+    x = df1,
+    y = df2,
+    by = key,
+    all = TRUE,
+    suffixes = suffixes
+  )
+  return(merged_dfs)
+}
+
+china_pop <- read.csv("../../data/China/china_population.csv")
+usa_pop <- read.csv("../../data/USA/population_usa.csv")
+china_forecast <- read.csv("../../data/China/china_population_forecast.csv")
+usa_forecast <- read.csv("../../data/USA/population_usa_forecast.csv")
+
+usa_china_pop <-
+  merge_dfs(usa_pop, china_pop, "Year", c(".USA", ".China"))
+
+usa_china_for <-
+  merge_dfs(usa_forecast, china_forecast, "Year", c(".USA", ".China"))
+
 # Data tests
 context('Data Integrity Tests')
 
