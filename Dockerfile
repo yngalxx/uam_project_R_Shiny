@@ -11,4 +11,4 @@ RUN R -e 'renv::restore()'
 
 EXPOSE 8080
 
-CMD ["R", "-e", "shiny::runApp('shiny_dashboard.R', host = '0.0.0.0', port = 8080)"]
+CMD ["R", "-e", "shiny::runApp('app.R', host = '0.0.0.0', port = 8080)"]
