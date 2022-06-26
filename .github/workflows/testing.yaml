@@ -9,7 +9,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test-coverage:
+  test:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -20,8 +20,13 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         with:
           use-public-rspm: true
-
-      - name: install packages
+      
+      - name: install ubuntu apps
+        run: |
+          apt-get update && apt-get -y install \
+            libcurl4-openssl-dev
+      
+      - name: install r packages
         run: |
           R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"
           R -e "remotes::install_github('rstudio/renv@0.15.4')"
