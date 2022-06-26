@@ -3,7 +3,14 @@
 source("ui.R")
 source("server.R")
 
-options(shiny.host = "0.0.0.0")
-options(shiny.port = 8080)
+app <- shinyApp(
+  ui = ui,
+  server = server
+)
 
-shinyApp(ui = ui, server = server)
+runApp(
+  app,
+  host = '0.0.0.0',
+  port = 8080
+)
+
