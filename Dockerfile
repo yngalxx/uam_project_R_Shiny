@@ -1,5 +1,8 @@
 FROM rocker/shiny:4.1.2 
 
+RUN apt-get update && apt-get -y install \
+    libssl-dev
+
 COPY . /usr/local/bin/uam_project_R_Shiny
 WORKDIR /usr/local/bin/uam_project_R_Shiny
 
