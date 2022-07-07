@@ -9,17 +9,19 @@ ui <- dashboardPage(
     # this tab contain overall business inforation
     menuItem("Population overall compare", tabName = "population"),
     # this tab contain inforation about migrants
-    menuItem("Detail information", tabName = "detail")
+    menuItem("Detail information", tabName = "detail"),
+    # this tab contain forecast for 3 parameters
+    menuItem("Forecast data", tabName = "forecast")
   )),
   dashboardBody(tabItems(
     tabItem(
       "population",
       fluidRow(
         box(
-          plotOutput("plot_pop_china", height = 350)
+          plotlyOutput("plot_pop_china", height = 350)
         ),
         box(
-          plotOutput("plot_pop_usa", height = 350)
+          plotlyOutput("plot_pop_usa", height = 350)
         )
       ),
       fluidRow(
@@ -37,7 +39,7 @@ ui <- dashboardPage(
     tabItem(
       "detail",
       fluidRow(
-        box(plotOutput("plot_median_age", height = 250)),
+        box(plotlyOutput("plot_median_age", height = 250)),
         box(
           background = "light-blue",
           "Median age in US was almost 2 times higher in year 1950.
@@ -46,7 +48,7 @@ ui <- dashboardPage(
         )
       ),
       fluidRow(
-        box(plotOutput("plot_migrants", height = 250)),
+        box(plotlyOutput("plot_migrants", height = 250)),
         box(
           background = "light-blue",
           "Number of people who migrate from US is growing. There was
@@ -57,7 +59,7 @@ ui <- dashboardPage(
         )
       ),
       fluidRow(
-        box(plotOutput("plot_density", height = 250)),
+        box(plotlyOutput("plot_density", height = 250)),
         box(
           background = "light-blue",
           "In China the density in 1950 year was about 2 times higher
@@ -65,6 +67,20 @@ ui <- dashboardPage(
               countries. However, in the China this increase was much faster."
         )
       )
+    ),
+    tabItem(
+      "forecast",
+      fluidPage(
+        selectInput("Parameter", 
+                    "Choose a Parameter:",
+                    choices = list("Population", "Density", "Median age"),
+                    selected = "Population"
+        ),
+        #actionButton("add_plot", "See the plot"),
+        
+        plotlyOutput("plot")
+      )
     )
   ))
 )
+
