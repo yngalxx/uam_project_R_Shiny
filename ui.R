@@ -2,6 +2,7 @@
 
 library(shiny)
 library(shinydashboard)
+library(plotly)
 
 ui <- dashboardPage(
   dashboardHeader(title = "China vs. USA Pop."),
