@@ -239,6 +239,5 @@ server <- function(input, output) {
       plot_forecast_median_age
     }
   })
-    
 }
 
